@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntentRoute — Adaptive Multi-Model Intelligence</title>
+  <meta name="description" content="Adaptive multi-model question answering platform with RoBERTa complexity routing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=105" />
+</head>
+<body>
+
+  <!-- ============================================================
+       AUTHENTICATION SCREEN (LOGIN PAGE)
+       ============================================================ -->
+  <div id="auth-screen" class="auth-wrapper">
+    <div class="meteor-shower" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="brand-title auth-title">
+          <span class="brand-intent">Intent</span><span class="brand-route">Route</span>
+        </div>
+        <p class="auth-subtitle">Sign in to your adaptive multi-model intelligence workspace</p>
+      </div>
+
+      <form id="login-form" class="auth-form" onsubmit="return false;">
+        <div class="form-group">
+          <label for="login-username">Username or Email</label>
+          <div class="input-with-icon">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input type="text" id="login-username" placeholder="Enter username (e.g., aakif)" required autocomplete="username" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <div class="input-with-icon">
+            <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="login-password" placeholder="Enter password" required autocomplete="current-password" />
+            <button type="button" id="toggle-pwd-btn" class="icon-btn pwd-toggle" title="Show/Hide Password" aria-label="Show password">
+              <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me" checked />
+            <span>Remember this device</span>
+          </label>
+          <span class="auth-hint">Default: any credentials</span>
+        </div>
+
+        <button type="submit" id="login-btn" class="btn-primary auth-submit-btn">
+          <span class="btn-text">Sign In to Workspace</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       MAIN APPLICATION SHELL (AFTER AUTHENTICATION)
+       ============================================================ -->
+  <div id="app-shell" class="app-shell hidden">
+    <div class="app-meteor-shower" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- ── Header ───────────────────────────────────────────── -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-title" onclick="switchTab('chat')">
+          <span class="brand-intent">Intent</span><span class="brand-route">Route</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" aria-label="Main Navigation">
+        <button class="nav-tab active" data-tab="chat" onclick="switchTab('chat')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Chat</span>
+        </button>
+        <button class="nav-tab" data-tab="architecture" onclick="switchTab('architecture')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          <span>Routing Architecture</span>
+        </button>
+        <button class="nav-tab" data-tab="analytics" onclick="switchTab('analytics')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Analytics</span>
+        </button>
+        <button class="nav-tab" data-tab="performance" onclick="switchTab('performance')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19V5"></path>
+            <path d="M4 19h16"></path>
+            <path d="m7 15 3-4 3 2 5-7"></path>
+          </svg>
+          <span>Performance</span>
+        </button>
+      </nav>
+
+      <!-- Header Controls -->
+      <div class="header-right">
+        <!-- Theme Toggle Switch -->
+        <button id="theme-toggle-btn" class="theme-toggle-switch" role="switch" aria-checked="true" title="Switch between Light and Dark mode" aria-label="Toggle theme">
+          <span class="theme-switch-track">
+            <span class="theme-switch-icon sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </span>
+            <span class="theme-switch-icon moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-switch-thumb"></span>
+          </span>
+          <span id="theme-label" class="sr-only">Dark</span>
+        </button>
+
+        <!-- User Profile & Sign Out -->
+        <div class="user-menu">
+          <div class="user-avatar" id="user-avatar-text">A</div>
+          <div class="user-info">
+            <span class="user-name" id="user-display-name">Aakif</span>
+          </div>
+          <button id="logout-btn" class="logout-btn" title="Sign Out" aria-label="Sign out">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ============================================================
+         VIEW 1: CHATBOT INTERFACE (MAIN PAGE)
+         ============================================================ -->
+    <main id="view-chat" class="view-content active">
+      <div class="chat-scroll-area">
+        <div class="chat-container">
+
+          <!-- Greeting Screen (Visible when no messages exist) -->
+          <div id="chat-greeting-view" class="chat-greeting-view">
+            <h1 class="chat-greeting">Ready when you are.</h1>
+            <p class="chat-greeting-sub">Ask any coding, math, or knowledge question to intelligently route across edge & specialist models.</p>
+          </div>
+
+          <!-- Chat Conversation Stream (Visible when messages exist) -->
+          <div id="chat-messages" class="chat-messages">
+            <!-- Populated dynamically by app.js -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sticky Floating Chat Input Area (Fixed dock with frosted glass) -->
+      <div class="chat-input-container">
+        <div class="chat-pill-wrapper">
+          <!-- Auto-expanding text area -->
+          <textarea
+            id="chat-input"
+            class="chat-input-field"
+            rows="1"
+            placeholder="Ask anything"
+            aria-label="Ask anything"
+          ></textarea>
+          <span id="word-count-display" class="word-count-display" style="display: none;" hidden></span>
+
+          <!-- Microphone Button -->
+          <button id="mic-btn" class="pill-btn icon-circle" title="Voice Input" aria-label="Voice input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          </button>
+
+          <!-- Blue Send Button (With Waveform / Arrow) -->
+          <button id="chat-send-btn" class="send-circle-btn" title="Send message" aria-label="Send message">
+            <svg class="send-wave-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="7" y1="10" x2="7" y2="14"></line>
+              <line x1="12" y1="6" x2="12" y2="18"></line>
+              <line x1="17" y1="10" x2="17" y2="14"></line>
+            </svg>
+            <svg class="send-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="composer-actions">
+          <button id="clear-chat-btn" class="clear-chat-btn" type="button" title="Clear conversation" aria-label="Clear conversation">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Clear chat</span>
+          </button>
+        </div>
+
+        <div class="chat-disclaimer">
+          IntentRoute dynamically classifies query complexity and routes to Qwen2.5:0.5B, Qwen2.5-Coder, Qwen3-8B, or Ministral-3B.
+        </div>
+      </div>
+    </main>
+
+
+    <!-- ============================================================
+         VIEW 2: ROUTING ARCHITECTURE (DEDICATED PAGE)
+         ============================================================ -->
+    <main id="view-architecture" class="view-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Routing Architecture</h2>
+            <p class="page-desc">Adaptive multi-model intelligence pipeline featuring RoBERTa-base complexity classification and specialized LLM dispatch.</p>
+          </div>
+          <div class="accuracy-badge">
+            <span class="accuracy-val">97.17%</span>
+            <span class="accuracy-label">RoBERTa Classification F1</span>
+          </div>
+        </div>
+
+        <!-- Visual Flow Diagram -->
+        <div class="arch-card pipeline-card">
+          <h3 class="card-heading">End-to-End Pipeline Execution</h3>
+
+          <div class="pipeline-flow">
+            <!-- Stage 1 -->
+            <div class="flow-stage">
+              <div class="stage-tag">Step 01</div>
+              <div class="stage-box">
+                <div class="stage-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <div class="stage-info">
+                  <h4>User Query Ingestion</h4>
+                  <p>Cache check in Redis / In-Memory cache</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-connector">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="flow-stage">
+              <div class="stage-tag">Step 02</div>
+              <div class="stage-box highlight-box">
+                <div class="stage-icon highlight-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a5 5 0 0 0-5 5v1a4 4 0 0 0-2 7.46V17a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1.54A4 4 0 0 0 17 8V7a5 5 0 0 0-5-5z"></path>
+                  </svg>
+                </div>
+                <div class="stage-info">
+                  <h4>RoBERTa Classifier</h4>
+                  <p>Complexity evaluation: Simple vs. Complex</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-connector">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="flow-stage">
+              <div class="stage-tag">Step 03</div>
+              <div class="stage-box">
+                <div class="stage-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                  </svg>
+                </div>
+                <div class="stage-info">
+                  <h4>Adaptive Dispatch</h4>
+                  <p>Edge vs. Domain Specialist Selection</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Branching Targets -->
+          <div class="models-grid">
+            <div class="model-target-card simple-route">
+              <div class="target-header">
+                <span class="route-badge badge-simple">Simple Route</span>
+                <span class="target-size">415 MB</span>
+              </div>
+              <h4 class="target-title">Qwen2.5:0.5B</h4>
+              <p class="target-sub">Quantization: Q2_K · Low power edge model for direct factual responses.</p>
+              <div class="target-tags">
+                <span class="meta-pill">Ultra Fast</span>
+                <span class="meta-pill">Edge Ready</span>
+              </div>
+            </div>
+
+            <div class="model-target-card code-route">
+              <div class="target-header">
+                <span class="route-badge badge-complex">Complex</span>
+                <span class="target-size">1.9 GB</span>
+              </div>
+              <h4 class="target-title">Qwen2.5-Coder:3B</h4>
+              <p class="target-sub">Specialized syntax, algorithmic design, debugging, and programming generation.</p>
+              <div class="target-tags">
+                <span class="meta-pill">Algorithms</span>
+                <span class="meta-pill">Python / JS / C++</span>
+              </div>
+            </div>
+
+            <div class="model-target-card math-route">
+              <div class="target-header">
+                <span class="route-badge badge-complex">Complex</span>
+                <span class="target-size">5.2 GB</span>
+              </div>
+              <h4 class="target-title">Qwen3:8B</h4>
+              <p class="target-sub">Deep mathematical reasoning, advanced calculus, algebraic equations, and multi-step logic.</p>
+              <div class="target-tags">
+                <span class="meta-pill">Deep Reasoning</span>
+                <span class="meta-pill">Advanced Math</span>
+              </div>
+            </div>
+
+            <div class="model-target-card gk-route">
+              <div class="target-header">
+                <span class="route-badge badge-complex">Complex</span>
+                <span class="target-size">3.0 GB</span>
+              </div>
+              <h4 class="target-title">Qwen2.5:3B</h4>
+              <p class="target-sub">Multi-domain general knowledge, historical synthesis, and comprehensive reasoning.</p>
+              <div class="target-tags">
+                <span class="meta-pill">Synthesis</span>
+                <span class="meta-pill">Knowledge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Interactive Route Classifier Simulator -->
+        <div class="arch-card simulator-card">
+          <div class="sim-header">
+            <div>
+              <h3 class="card-heading">Interactive Route Simulator</h3>
+              <p class="card-subheading">Test RoBERTa complexity classification and domain detection in real time without executing LLM generation.</p>
+            </div>
+            <button id="clear-sim-btn" class="btn-secondary btn-sm">Clear</button>
+          </div>
+
+          <div class="sim-input-row">
+            <input type="text" id="sim-query-input" placeholder="Type a test query (e.g., 'Write a quicksort in Python' or 'What is 15% of 240?')" />
+            <button id="sim-run-btn" class="btn-primary">
+              <span>Test Route</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Simulator Result Container -->
+          <div id="sim-result" class="sim-result empty">
+            <div class="sim-placeholder">
+              Enter any prompt above and click "Test Route" to observe live RoBERTa confidence scores and routing decisions.
+            </div>
+          </div>
+        </div>
+
+        <!-- Model Specifications Matrix -->
+        <div class="arch-card table-card">
+          <h3 class="card-heading">Model Specification Matrix</h3>
+          <div class="table-responsive">
+            <table class="specs-table">
+              <thead>
+                <tr>
+                  <th>Complexity</th>
+                  <th>Assigned Model</th>
+                  <th>Quantization / Size</th>
+                  <th>Latency Budget</th>
+                  <th>Target Hardware</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="badge badge-simple">Simple</span></td>
+                  <td><strong>Qwen2.5:0.5B</strong></td>
+                  <td>Q2_K · 415 MB</td>
+                  <td>&lt; 500 ms</td>
+                  <td>Local / Low-Power CPU</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-complex">Complex</span></td>
+                  <td><strong>Qwen2.5-Coder:3B</strong></td>
+                  <td>4-bit · 1.9 GB</td>
+                  <td>1 – 2 s</td>
+                  <td>Workstation / GPU Server</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-complex">Complex</span></td>
+                  <td><strong>Qwen3:8B (Math & Reasoning)</strong></td>
+                  <td>4-bit · 5.2 GB</td>
+                  <td>2 – 4 s</td>
+                  <td>Workstation / GPU Server</td>
+                </tr>
+                <tr>
+                  <td><span class="badge badge-complex">Complex</span></td>
+                  <td><strong>Qwen2.5:3B</strong></td>
+                  <td>4-bit · 3.0 GB</td>
+                  <td>1 – 2.5 s</td>
+                  <td>Workstation / GPU Server</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+
+    <!-- ============================================================
+         VIEW 3: SYSTEM ANALYTICS & CACHE
+         ============================================================ -->
+    <main id="view-analytics" class="view-content">
+      <div class="page-container">
+
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">System Analytics & Cache</h2>
+            <p class="page-desc">Live performance metrics, cache hit ratio, query distributions, and hardware resource utilization.</p>
+          </div>
+          <button id="cache-flush-btn" class="btn-secondary" title="Flush Redis / Memory cache">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+            <span>Flush Cache</span>
+          </button>
+        </div>
+
+        <!-- Telemetry Cards -->
+        <div class="telemetry-grid">
+          <div class="telemetry-card">
+            <div class="telemetry-label">Queries Processed</div>
+            <div class="telemetry-value" id="metric-queries">0</div>
+            <div class="telemetry-sub">Current active session</div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-label">Cache Hit Ratio</div>
+            <div class="telemetry-value" id="metric-cache-rate">0%</div>
+            <div class="telemetry-sub" id="metric-cache-backend">Redis / In-memory LRU</div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-label">Average Latency</div>
+            <div class="telemetry-value" id="metric-latency">—</div>
+            <div class="telemetry-sub">End-to-end response time</div>
+          </div>
+
+          <div class="telemetry-card">
+            <div class="telemetry-label">Hardware Utilization</div>
+            <div class="telemetry-value" id="metric-cpu">—</div>
+            <div class="telemetry-sub">RAM: <span id="metric-ram">—</span></div>
+          </div>
+        </div>
+
+        <!-- Query History Log -->
+        <div class="arch-card">
+          <div class="sim-header">
+            <h3 class="card-heading">Recent Query Executions</h3>
+            <span class="card-subheading">Latest 20 routed questions</span>
+          </div>
+
+          <div class="history-list" id="analytics-history-list">
+            <div class="history-empty">No query history recorded yet.</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ============================================================
+         VIEW 4: MODEL PERFORMANCE
+         ============================================================ -->
+    <main id="view-performance" class="view-content">
+      <div class="page-container performance-page">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Model Performance</h2>
+            <p class="page-desc">RoBERTa classifier evaluation across the held-out test set.</p>
+          </div>
+        </div>
+
+        <div class="performance-metrics-grid">
+          <div class="performance-metric-card performance-accent-blue">
+            <span class="performance-metric-label">Accuracy</span>
+            <strong>97.17%</strong>
+            <span>Held-out test split</span>
+          </div>
+          <div class="performance-metric-card performance-accent-green">
+            <span class="performance-metric-label">Precision</span>
+            <strong>97.71%</strong>
+            <span>Held-out test split</span>
+          </div>
+          <div class="performance-metric-card performance-accent-orange">
+            <span class="performance-metric-label">Recall</span>
+            <strong>96.60%</strong>
+            <span>Held-out test split</span>
+          </div>
+          <div class="performance-metric-card performance-accent-violet">
+            <span class="performance-metric-label">F1 Score</span>
+            <strong>97.15%</strong>
+            <span>Held-out test split</span>
+          </div>
+        </div>
+
+        <div class="performance-chart-panel">
+          <div class="performance-chart-header">
+            <div>
+              <h3 class="card-heading">Evaluation Metrics</h3>
+              <p class="card-subheading">Classifier results on the held-out test set</p>
+            </div>
+            <span class="performance-chart-scale">0 - 100%</span>
+          </div>
+          <div class="performance-chart" role="img" aria-label="Bar chart showing accuracy 97.17 percent, precision 97.71 percent, recall 96.60 percent, and F1 score 97.15 percent">
+            <div class="metric-bar-row">
+              <span>Accuracy</span>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-blue" style="--metric-value: 97.17%;"></div></div>
+              <strong>97.17%</strong>
+            </div>
+            <div class="metric-bar-row">
+              <span>Precision</span>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-green" style="--metric-value: 97.71%;"></div></div>
+              <strong>97.71%</strong>
+            </div>
+            <div class="metric-bar-row">
+              <span>Recall</span>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-orange" style="--metric-value: 96.60%;"></div></div>
+              <strong>96.60%</strong>
+            </div>
+            <div class="metric-bar-row">
+              <span>F1 Score</span>
+              <div class="metric-bar-track"><div class="metric-bar-fill bar-violet" style="--metric-value: 97.15%;"></div></div>
+              <strong>97.15%</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Global Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/app.js?v=111"></script>
+</body>
+</html>

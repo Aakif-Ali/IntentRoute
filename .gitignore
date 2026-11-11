@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+.pytest_cache/
+.mypy_cache/
+
+# Large model weights and training artifacts
+*.bin
+*.pt
+*.safetensors
+*.h5
+*.ot
+*.msgpack
+*.npy
+classification/roberta_final_model/checkpoint-*/
+
+# Generated or downloaded datasets
+processed/*.json
+models/simple_qa/data.json

@@ -1,0 +1,43 @@
+============================================================
+FINAL RoBERTa CLASSIFICATION RESULTS
+============================================================
+
+MODEL
+RoBERTa-base
+
+DATASET
+Total samples: 60000
+Training samples: 48000
+Validation samples: 6000
+Test samples: 6000
+
+FINAL TEST RESULTS
+----------------------------------------
+Accuracy : 0.9717
+Precision: 0.9771
+Recall   : 0.9660
+F1 Score : 0.9715
+
+
+CLASSIFICATION REPORT
+----------------------------------------
+              precision    recall  f1-score   support
+
+      Simple     0.9664    0.9773    0.9718      3000
+     Complex     0.9771    0.9660    0.9715      3000
+
+    accuracy                         0.9717      6000
+   macro avg     0.9717    0.9717    0.9717      6000
+weighted avg     0.9717    0.9717    0.9717      6000
+
+
+CONFUSION MATRIX
+----------------------------------------
+Simple  -> Simple: 2932
+Simple  -> Complex: 68
+Complex -> Simple: 102
+Complex -> Complex: 2898
+
+
+MODEL LOCATION
+C:\Users\aakif\final year\classification\roberta_final_model
